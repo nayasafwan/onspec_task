@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
+const query  = require("./database/db")
 
 
 const PORT = process.env.PORT || 3000
@@ -11,9 +11,8 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(port, () => {
+app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
 });
   
 
-app.listen
