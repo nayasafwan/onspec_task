@@ -12,24 +12,25 @@ router.post("/candidate", async(req, res)=>{
         const existingEmail = await CandidateController.findCandidateByEmail(body.email)
 
         if(existingEmail){
-            return res.status(400).json({success : false, message : "Username with existing email already exists"})
+            return res.status(400).json({success : false,  message : "Validation error", error : "Email already exists"})
         }
      
         CandidateController.createCandidate(body)
-        .then(candidate =>  res.status(201).json({ success: true, candidate }))
+        .then(candidate =>  res.status(201).json({ success: true, message : candidate }))
         .catch(error =>{
             return res.status(400).json({ success: false, message : "Validation error", error : error.errors });
         })
     }
     catch(err){
-        console.log(err)
         return res.status(500).json({message : "Internal server error"})
     }
 })
 
-router.patch("/candidate", async(req,res)=>{
+router.patch("/candidate/:id", async(req,res)=>{
     try{
         const body = req.body;
+        const { id }= req.params;
+
         if(!body.email){
             return res.status(400).json({success: false, message : "Validation error", error : "Email is required" })
         }
@@ -37,11 +38,13 @@ router.patch("/candidate", async(req,res)=>{
         const existingEmail = await CandidateController.findCandidateByEmail(body.email)
 
         if(existingEmail){
-            return res.status(400).json({success : false, message : "Username with existing email already exists"})
-        }
+            return res.status(400).json({success : false,message : "Validation error", error : "Email already exists"})
+        }  
 
-        CandidateController.editCandidate(body)
-        .then(candidate => res.status(200).json({success : true, candidate}))
+        CandidateController.editCandidate(id, body)
+        .then(candidate => {
+           return res.status(200).json({success : true, message : candidate})
+        })
         .catch(error =>{
             return res.status(400).json({ success: false, message : "Validation error", error : error.errors });
         })

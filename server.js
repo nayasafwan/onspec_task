@@ -29,8 +29,12 @@ models.sequelize.sync().then(function() {
 
 app.use("/", candidateRoute)
 
-app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`);
-});
+if(process.env.NODE_ENV != "test"){
+    app.listen(PORT, () => {
+        console.log(`App listening on port ${PORT}`);
+    });
+}
+
   
 
+module.exports = app;
