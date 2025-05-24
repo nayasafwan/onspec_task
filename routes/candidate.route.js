@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const CandidateController = require("../controllers/candidate.controller")
+const CandidateController = require("../repositories/candidate.repository")
 
 router.post("/candidate", async(req, res)=>{
     try{
