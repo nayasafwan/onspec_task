@@ -21,7 +21,14 @@ Update config/config.json with your MySQL database credentials:
 4. Run the server
    ```bash
    npm run start
+5. Run test cases
+   ```bash
+   npm run test
 
+## Run using Docker 
+   ```bash
+   docker-compose up --build
+   ```
 
 ## API Endpoints
 
