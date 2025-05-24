@@ -1,20 +1,8 @@
-const mysql = require('mysql2/promise');
-const config = require("./config")
+const { Sequelize } = require('sequelize');
+const config = require("../config/config.json")
+
+const env = process.env.NODE_ENV
+const sequelize = new Sequelize(config[env]);
 
 
-
-
-async function query(sql, params) {
-    const connection = await mysql.createConnection(config);
-    try{
-        const [results] = await connection.query(sql, params);
-        return results;
-    }
-    catch(err){
-        console.error(`Failed to connect to db ${err}`)
-    } 
-}
-
-
-
-module.exports = query
+module.exports = sequelize
