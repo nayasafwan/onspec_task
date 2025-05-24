@@ -29,8 +29,10 @@ Update config/config.json with your MySQL database credentials:
 
 ```http
 POST /candidate
+```
 
 ### Edit a new Candidate
 
 ```http
 PATCH /candidate/:id
+```
